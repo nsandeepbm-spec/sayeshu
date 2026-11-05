@@ -1,5 +1,6 @@
 /** Central registry of site photography (all files live in /public/images). */
 export const images = {
+  homeHero: "/images/hero_image.png",
   dataCentreExterior: "/images/data-centre-hero.jpg",
   serverHallLong: "/images/server-hall-long.jpg",
   serverAisleBlue: "/images/server-aisle-blue.jpg",

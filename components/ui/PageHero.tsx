@@ -12,6 +12,8 @@ type PageHeroProps = {
   description: ReactNode;
   image: string;
   imageAlt: string;
+  /** Optional object-fit / object-position overrides for the photo. */
+  imageClassName?: string;
   /** Hide the breadcrumb (homepage). */
   breadcrumb?: boolean;
   /** `tall` is used by the homepage hero. */
@@ -31,6 +33,7 @@ export function PageHero({
   description,
   image,
   imageAlt,
+  imageClassName,
   breadcrumb = true,
   size = "default",
   children,
@@ -39,7 +42,8 @@ export function PageHero({
     <section
       className={cn(
         "relative isolate flex items-center overflow-hidden border-b border-line bg-canvas",
-        size === "tall" ? "min-h-150 lg:min-h-210 xl:min-h-225" : "min-h-125 lg:min-h-140",
+        // Home tall hero: on desktop the photo is 65% wide, so 32.5vw tall shows the whole 2:1 image uncropped.
+        size === "tall" ? "min-h-135 lg:min-h-[max(32.5vw,28rem)]" : "min-h-125 lg:min-h-140",
       )}
     >
       <div className="absolute inset-y-0 right-0 -z-20 w-full lg:w-13/20">
@@ -50,13 +54,16 @@ export function PageHero({
           preload
           loading="eager"
           sizes="(min-width: 1024px) 65vw, 100vw"
-          className="object-cover object-center"
+          className={imageClassName ?? "object-cover object-center"}
         />
       </div>
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-canvas/85 lg:hidden" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-canvas/85 lg:hidden"
+      />
       <div aria-hidden="true" className="hero-fade absolute inset-0 -z-10 hidden lg:block" />
 
-      <Container className="py-16 lg:py-20">
+      <Container className="py-12 sm:py-16 lg:py-20">
         <div className="max-w-140">
           {breadcrumb && <Breadcrumb label={label} className="rise mb-6" />}
           <Eyebrow tone="ink" rule="after" className="rise mb-5">

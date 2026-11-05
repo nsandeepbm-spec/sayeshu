@@ -44,7 +44,6 @@ yarn-error.log*
 next-env.d.ts
 
 # local editor / agent tooling
-.vscode/
 .idea/
 .cursor/
 
@@ -55,3 +54,7 @@ stitch_*/
 **/DESIGN.md
 code.html
 screen.png
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
