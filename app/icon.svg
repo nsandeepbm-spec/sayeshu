@@ -1,0 +1,7 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="16,2 29,8 29,24 16,30 3,24 3,8" fill="#222B35" stroke="#111A22" stroke-width="1.5"/>
+  <polygon points="16,2 29,8 16,14 3,8" fill="#394553"/>
+  <polygon points="3,8 16,14 16,30 3,24" fill="#1B232C"/>
+  <polygon points="29,8 29,24 16,30 16,14" fill="#2E3945"/>
+  <path d="M21 11H13C11.5 11 11 12 11 13C11 14.5 12.5 15 15 15.5L17 16C19.5 16.5 21 17.5 21 19.5C21 21 19.5 22 17 22H11" stroke="#F7F6F3" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"/>
+</svg>

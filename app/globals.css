@@ -1,26 +1,230 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * SAYESHU Engineering System — design tokens.
+ * Strict rectilinear geometry (no radii), hairline 1px rules, warm limestone
+ * canvas with navy-black structure and a disciplined teal accent.
+ */
+@theme {
+  /* Light surfaces */
+  --color-canvas: #f7f6f3;
+  --color-stone: #efece6;
+  --color-line: #e5e3de;
+  --color-line-strong: #d5d3cb;
+
+  /* Ink / text */
+  --color-ink: #111a22;
+  --color-steel: #5b636b;
+  --color-steel-dark: #4a525a;
+  --color-mist: #74777b;
+
+  /*
+   * Accent: "coolant" teal.
+   *  - accent        rules, bullets, fills and icons (decorative, works on light and dark)
+   *  - accent-text   AA-safe small text on light surfaces (5:1 on canvas)
+   *  - accent-bright text on dark bands (9:1 on night)
+   *  - accent-tint   soft message text on dark bands
+   */
+  --color-accent: #0f9b8e;
+  --color-accent-text: #08726a;
+  --color-accent-bright: #2dd4bf;
+  --color-accent-tint: #c4f5ee;
+
+  /* Dark inversion */
+  --color-night: #0b141b;
+  --color-night-raised: #141c25;
+  --color-night-line: #222e38;
+  --color-night-text: #94a3b8;
+  --color-night-soft: #bec7d3;
+  --color-night-muted: #9aa3ab;
+  --color-night-label: #8e9ca8;
+  --color-night-deep: #0e171e;
+  --color-night-panel: #141f29;
+  --color-night-border: #22303d;
+
+  /* Extra neutrals */
+  --color-steel-deep: #44474b;
+  --color-outline: #c4c6cb;
+  --color-canvas-hover: #faf9f6;
+  --color-stone-deep: #e9e7e1;
+  --color-line-warm: #e2e0d8;
+  --color-info-tint: #e7eff8;
+
+  /* Status */
+  --color-success: #448844;
+  --color-danger: #ba1a1a;
+  --color-danger-ink: #93000a;
+  --color-danger-tint: #ffdad6;
+
+  /*
+   * Type scale beyond Tailwind's defaults. Use these named sizes instead of
+   * arbitrary values such as text-[13px].
+   */
+  --text-micro: 0.625rem; /* 10px */
+  --text-tiny: 0.6875rem; /* 11px */
+  --text-small: 0.8125rem; /* 13px */
+  --text-body: 0.9375rem; /* 15px */
+  --text-lead: 1.0625rem; /* 17px */
+  --text-card-title: 1.3125rem; /* 21px */
+  --text-feature: 1.75rem; /* 28px */
+  --text-feature-lg: 2rem; /* 32px */
+  --text-headline: 2.375rem; /* 38px */
+  --text-display: 2.5rem; /* 40px */
+  --text-headline-lg: 3.5rem; /* 56px */
+
+  /* Letter-spacing used on uppercase labels and headings */
+  --tracking-nav: 0.01em;
+  --tracking-caps: 0.08em;
+  --tracking-link: 0.14em;
+  --tracking-label: 0.15em;
+  --tracking-eyebrow: 0.18em;
+  --tracking-heading-sm: -0.02em;
+  --tracking-heading: -0.03em;
+  --tracking-logo: 0.35em;
+
+  --text-logo: 1.625rem; /* 26px wordmark */
+  --leading-headline: 1.06;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Afacad Flux for body, paragraphs, navbar, headlines and logo. */
+  --font-sans: var(--font-afacad-flux), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-afacad-flux), ui-sans-serif, system-ui, sans-serif;
+  --font-logo: var(--font-afacad-flux), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "tnum" 1;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-accent-text);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Left-to-right dissolve used on every page hero so copy stays legible over photography. */
+@utility hero-fade {
+  background-image: linear-gradient(
+    to right,
+    var(--color-canvas) 0%,
+    var(--color-canvas) 35%,
+    color-mix(in srgb, var(--color-canvas) 85%, transparent) 45%,
+    color-mix(in srgb, var(--color-canvas) 55%, transparent) 55%,
+    color-mix(in srgb, var(--color-canvas) 20%, transparent) 68%,
+    transparent 82%
+  );
+}
+
+/* Same dissolve for dark heroes: night colour on the left, photography on the right. */
+@utility hero-fade-night {
+  background-image: linear-gradient(
+    to right,
+    var(--color-night) 0%,
+    var(--color-night) 36%,
+    color-mix(in srgb, var(--color-night) 82%, transparent) 48%,
+    color-mix(in srgb, var(--color-night) 50%, transparent) 60%,
+    color-mix(in srgb, var(--color-night) 15%, transparent) 76%,
+    transparent 92%
+  );
+}
+
+/* Blueprint grid for light surfaces (the default one is tuned for dark bands). */
+@utility blueprint-grid-light {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--color-ink) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-ink) 5%, transparent) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/*
+ * Entrance animation for hero content: fades up once on load.
+ * Combine `rise` with a delay step (`rise-1` … `rise-4`) to stagger lines.
+ * Reduced-motion users get no animation (see the base layer rule above).
+ */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility rise {
+  animation: rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+@utility rise-1 {
+  --rise-delay: 80ms;
+}
+@utility rise-2 {
+  --rise-delay: 180ms;
+}
+@utility rise-3 {
+  --rise-delay: 300ms;
+}
+@utility rise-4 {
+  --rise-delay: 420ms;
+}
+
+/* Responsive display heading shared by every section title (32 / 40 / 44px). */
+@utility section-title {
+  font-size: 2rem;
+  line-height: 2.5rem;
+  letter-spacing: var(--tracking-tight);
+  @media (min-width: 48rem) {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+  @media (min-width: 64rem) {
+    font-size: 2.75rem;
+    line-height: 3.25rem;
+  }
+}
+
+/* Faint blueprint grid used on dark technical bands. */
+@utility blueprint-grid {
+  background-image:
+    linear-gradient(to right, rgba(190, 199, 211, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(190, 199, 211, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

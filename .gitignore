@@ -22,6 +22,8 @@
 
 # misc
 .DS_Store
+Thumbs.db
+Desktop.ini
 *.pem
 
 # debug
@@ -30,8 +32,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files (never commit secrets)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +42,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local editor / agent tooling
+.vscode/
+.idea/
+.cursor/
+
+# Stitch / design exports — do not publish to GitHub
+# (also lives next to this app as ../stitch_sayeshu_ai_data_centre_homepage)
+stitch_*/
+**/stitch_*/
+**/DESIGN.md
+code.html
+screen.png
