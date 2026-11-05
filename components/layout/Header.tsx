@@ -34,28 +34,24 @@ export function Header() {
   const menuId = useId();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Mobile drawer is tied to the route it opened on, so navigation closes it without an effect.
+  // Open UI is keyed to the route it applies to, so navigation resets it without an effect.
   const [mobileOpenOn, setMobileOpenOn] = useState<string | null>(null);
-  const [mobileCapabilitiesOpen, setMobileCapabilitiesOpen] = useState(true);
-  const [capabilitiesOpen, setCapabilitiesOpen] = useState(false);
+  const [mobileCapabilitiesClosedOn, setMobileCapabilitiesClosedOn] = useState<string | null>(null);
+  const [capabilitiesOpenOn, setCapabilitiesOpenOn] = useState<string | null>(null);
   const mobileOpen = mobileOpenOn === pathname;
-
-  useEffect(() => {
-    setCapabilitiesOpen(false);
-    setMobileOpenOn(null);
-    setMobileCapabilitiesOpen(true);
-  }, [pathname]);
+  const mobileCapabilitiesOpen = mobileCapabilitiesClosedOn !== pathname;
+  const capabilitiesOpen = capabilitiesOpenOn === pathname;
 
   useEffect(() => {
     if (!capabilitiesOpen) return;
 
     const onPointerDown = (event: PointerEvent) => {
       if (!dropdownRef.current?.contains(event.target as Node)) {
-        setCapabilitiesOpen(false);
+        setCapabilitiesOpenOn(null);
       }
     };
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setCapabilitiesOpen(false);
+      if (event.key === "Escape") setCapabilitiesOpenOn(null);
     };
 
     document.addEventListener("pointerdown", onPointerDown);
@@ -76,9 +72,9 @@ export function Header() {
   }, [mobileOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-canvas">
-      <Container className="flex h-20 items-center justify-between gap-4 sm:gap-6">
-        <Logo />
+    <header className="sticky top-0 z-50 border-b border-line bg-canvas pt-[env(safe-area-inset-top,0px)] shadow-[0_-48px_0_0_var(--color-canvas)]">
+      <Container className="flex h-16 items-center justify-between gap-3 sm:h-20 sm:gap-6">
+        <Logo height={32} />
 
         <nav aria-label="Primary" className="hidden items-center gap-6 lg:gap-10 md:flex">
           {navItems.map((item) =>
@@ -91,7 +87,7 @@ export function Header() {
                   aria-controls={menuId}
                   onClick={(event) => {
                     event.stopPropagation();
-                    setCapabilitiesOpen((value) => !value);
+                    setCapabilitiesOpenOn(capabilitiesOpen ? null : pathname);
                   }}
                   className={cn(
                     "inline-flex items-center gap-1.5 border-b py-1 text-body font-medium tracking-nav text-ink transition-colors hover:text-accent-text",
@@ -122,7 +118,7 @@ export function Header() {
                             role="menuitem"
                             href={child.href}
                             aria-current={childActive ? "page" : undefined}
-                            onClick={() => setCapabilitiesOpen(false)}
+                            onClick={() => setCapabilitiesOpenOn(null)}
                             className={cn(
                               "block px-4 py-3 text-small font-medium transition-colors",
                               childActive
@@ -163,7 +159,7 @@ export function Header() {
           </div>
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center border border-ink text-ink transition-colors hover:bg-stone md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center border border-line text-ink transition-colors hover:border-ink hover:bg-stone sm:h-11 sm:w-11 md:hidden"
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -199,7 +195,9 @@ export function Header() {
                           aria-expanded={mobileCapabilitiesOpen}
                           aria-controls="mobile-capabilities"
                           aria-label={mobileCapabilitiesOpen ? "Hide capability pages" : "Show capability pages"}
-                          onClick={() => setMobileCapabilitiesOpen((value) => !value)}
+                          onClick={() =>
+                            setMobileCapabilitiesClosedOn(mobileCapabilitiesOpen ? pathname : null)
+                          }
                           className="inline-flex h-11 w-11 items-center justify-center text-ink"
                         >
                           <Icon

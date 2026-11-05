@@ -20,10 +20,10 @@ export function GpuPerfFramework() {
             </p>
           </div>
 
-          <div className="relative min-h-90 overflow-hidden border border-line bg-stone lg:col-span-7 lg:min-h-125">
+          <div className="relative aspect-2/1 overflow-hidden border border-line bg-stone lg:col-span-7">
             <Image
               src={images.gpuPerfDiagram}
-              alt="Technical diagram relating power, cooling, GPU compute, network throughput and AI inference output"
+              alt="Engineering performance framework diagram: electrical capacity, cooling, GPU configuration, network architecture and workload characteristics converging into computing outcomes"
               fill
               sizes="(min-width: 1024px) 55vw, 100vw"
               className="object-cover object-center"

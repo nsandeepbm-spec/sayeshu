@@ -28,15 +28,15 @@ export default function ContactPage() {
             <div className="mb-10 border-b border-outline pb-6">
               <div className="mb-1 flex items-center justify-between gap-4">
                 <span className="text-xs font-semibold uppercase tracking-widest text-accent-text">
-                  Telemetry &amp; briefing
+                  Project enquiry
                 </span>
                 <span className="text-xs uppercase text-steel-deep">DOC-REV // 2026.4</span>
               </div>
               <h2 id="enquiry-title" className="font-display text-feature font-bold tracking-heading-sm text-ink">
-                Project Briefing &amp; Advisory Request
+                Project enquiry
               </h2>
               <p className="mt-1 text-body leading-6 text-steel-dark">
-                Provide initial technical and operational parameters.
+                Share initial technical and operational parameters for the right engineering response.
               </p>
             </div>
             <ContactForm />

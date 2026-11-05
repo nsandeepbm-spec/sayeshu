@@ -36,9 +36,16 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f7f6f3",
+  // Match status-bar chrome to the canvas so no dark seam sits above the header.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7f6f3" },
+    { media: "(prefers-color-scheme: dark)", color: "#f7f6f3" },
+  ],
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
+  // Lets the sticky header paint under the notch / Dynamic Island.
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

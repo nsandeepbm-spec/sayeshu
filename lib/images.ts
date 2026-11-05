@@ -21,7 +21,7 @@ export const images = {
   aiInfraNetworking: "/images/ai-infra-networking.jpg",
   gpuPerfHero: "/images/gpu-perf-hero.jpg",
   gpuPerfMonitoring: "/images/gpu-perf-monitoring.jpg",
-  gpuPerfDiagram: "/images/gpu-perf-diagram.jpg",
+  gpuPerfDiagram: "/images/gpu.png",
 } as const;
 
 export type ImageKey = keyof typeof images;
