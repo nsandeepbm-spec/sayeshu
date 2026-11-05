@@ -16,8 +16,9 @@ export function Hero() {
         </>
       }
       description="We design and engineer data centre infrastructure for the next generation of computing — integrating power, cooling, GPU systems and performance into one coordinated engineering approach."
-      image={images.dataCentreExterior}
-      imageAlt="Modern enterprise AI data centre with a concrete and black louvred facade at sunset"
+      image={images.homeHero}
+      imageAlt="Sayeshu-engineered data centre facade at dusk with server hall visible through the glass corner"
+      imageClassName="object-cover object-right-top"
     >
       <div className="mt-9 flex flex-wrap items-center gap-4">
         <ButtonLink href="/expertise" icon="arrow-right">
